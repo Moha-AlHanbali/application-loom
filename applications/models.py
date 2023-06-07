@@ -3,11 +3,13 @@ from django.db import models
 
 
 class Interaction(models.Model):
+    id = models.BigAutoField(primary_key=True)
     interaction_date = models.DateField(blank=False, null=False)
     interaction_description = models.TextField(blank=False, null=False)
 
 
 class Location(models.Model):
+    id = models.BigAutoField(primary_key=True)
     country = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
@@ -20,6 +22,8 @@ class Application(models.Model):
         OFFER = "OFFER", _("Offer")
         ACCEPTED = "ACCEPTED", _("Accepted")
         REJECTED = "REJECTED", _("Rejected")
+
+    id = models.BigAutoField(primary_key=True)
 
     application_status = models.CharField(
         max_length=16,
