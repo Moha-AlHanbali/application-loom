@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "application-loom"
+version = "0.1.0"
+description = "Job application status tracker, a room to bloom or gloom."
+authors = ["Moha-AlHanbali <moha.alhanbali@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "application_loom"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^6.0.0"
+black = "^23.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
