@@ -15,6 +15,13 @@ class Location(models.Model):
     address = models.CharField(max_length=255, blank=False, null=False)
 
 
+class Insight(models.Mode):
+    id = models.BigAutoField(primary_key=True)
+    cv_match = models.DecimalField(
+        max_digits=4, decimal_places=2, max_value=100.00, min_value=0.00
+    )
+
+
 class Application(models.Model):
     class ApplicationStatus(models.TextChoices):
         DATED = "DATED", _("Dated")
@@ -24,9 +31,17 @@ class Application(models.Model):
         REJECTED = "REJECTED", _("Rejected")
 
     class WorkModel(models.TextChoices):
-        ONSITE = "On-site", _("On-Site")
-        REMOTE = "Remote", _("Remote")
-        Hybrid = "Hybrid", _("Hybrid")
+        ONSITE = "ONSITE", _("On-Site")
+        REMOTE = "REMOTE", _("Remote")
+        HYBRID = "HYBRID", _("Hybrid")
+
+    class JobType(models.TextChoices):
+        FULL_TIME = "FULL_TIME", _("Full-time")
+        PART_TIME = "PART_TIME", _("Part-time")
+        CONTRACT = "CONTRACT", _("Contract")
+        TEMPORARY = "TEMPORARY", _("Temporary")
+        INTERNSHIP = "INTERNSHIP", _("Internship")
+        OTHER = "OTHER", _("Other")
 
     id = models.BigAutoField(primary_key=True)
 
@@ -35,16 +50,21 @@ class Application(models.Model):
         choices=ApplicationStatus.choices,
         default=ApplicationStatus.PENDING,
     )
-    work_model = models.CharField(
-        max_length=16, choices=WorkModel.choices, default=WorkModel.ONSITE
-    )
     application_date = models.DateField(blank=False, null=False)
+
     post_url = models.URLField()
     company_name = models.CharField(max_length=255, blank=False, null=False)
+    company_insights = models.TextField()
+
     job_title = models.CharField(max_length=255, blank=False, null=False)
     job_location = models.ForeignKey(Location, on_delete=models.CASCADE)
     job_role_and_responsibilities = models.TextField(blank=False, null=False)
     job_requirements = models.TextField(blank=False, null=False)
     job_benefits = models.TextField(blank=False, null=False)
-    notes = models.TextField(blank=False, null=False)
+
+    work_model = models.CharField(
+        max_length=16, choices=WorkModel.choices, default=WorkModel.ONSITE
+    )
+
     interactions = models.ForeignKey(Interaction, on_delete=models.CASCADE)
+    notes = models.TextField(blank=False, null=False)
