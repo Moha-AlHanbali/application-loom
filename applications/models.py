@@ -23,12 +23,20 @@ class Application(models.Model):
         ACCEPTED = "ACCEPTED", _("Accepted")
         REJECTED = "REJECTED", _("Rejected")
 
+    class WorkModel(models.TextChoices):
+        ONSITE = "On-site", _("On-Site")
+        REMOTE = "Remote", _("Remote")
+        Hybrid = "Hybrid", _("Hybrid")
+
     id = models.BigAutoField(primary_key=True)
 
     application_status = models.CharField(
         max_length=16,
         choices=ApplicationStatus.choices,
         default=ApplicationStatus.PENDING,
+    )
+    work_model = models.CharField(
+        max_length=16, choices=WorkModel.choices, default=WorkModel.ONSITE
     )
     application_date = models.DateField(blank=False, null=False)
     post_url = models.URLField()
