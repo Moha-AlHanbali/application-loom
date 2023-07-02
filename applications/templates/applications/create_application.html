@@ -1,6 +1,14 @@
-<h1>Create Application</h1>
-<form method="post">
+<form method="POST" action="{% url 'create_application' %}">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Create</button>
+
+  <h2>Location</h2>
+  {{ location_form.as_p }}
+
+  <h2>Application</h2>
+  {{ application_form.as_p }}
+
+  <h2>Interaction</h2>
+  {{ interaction_form.as_p }}
+  
+  <button type="submit">Submit</button>
 </form>

@@ -1,22 +1,34 @@
 from django import forms
-from .models import Application
+
+from .models import Interaction, Location, Application
+
+
+class InteractionForm(forms.ModelForm):
+    class Meta:
+        model = Interaction
+        fields = ["interaction_highlight", "interaction_date", "interaction_description"]
+        widgets = {"interaction_date": forms.widgets.DateInput(attrs={"type": "date"})}
+
+
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ["country", "city", "address"]
 
 
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = '__all__'
-
-
-class InsightsForm(forms.Form):
-    CHOICES = [
-    ('choices--choices-multiple-remove-button-item-choice-10', 'Engineering'),
-    ('choices--choices-multiple-remove-button-item-choice-19', 'IT & Telecoms') 
-    ]
-        
-    industry = forms.ChoiceField(label="Industry", choices=CHOICES)
-    job_description = forms.CharField(label="Job Description")
-    cv_content = forms.CharField(label="CV Content")
-    # https://cvscan.uk/
-    def get_match_percentage(self):
-        return
+        fields = [
+            "application_date",
+            "application_status",
+            "post_url",
+            "company_name",
+            "job_title",
+            "job_role_and_responsibilities",
+            "job_requirements",
+            "job_benefits",
+            "work_model",
+            "notes",
+        ]
+        widgets = {"application_date": forms.widgets.DateInput(attrs={"type": "date"})}
