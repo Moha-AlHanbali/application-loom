@@ -6,7 +6,7 @@ from .models import Interaction, Location, Application
 class InteractionForm(forms.ModelForm):
     class Meta:
         model = Interaction
-        fields = ["interaction_date", "interaction_description"]
+        fields = ["interaction_highlight", "interaction_date", "interaction_description"]
         widgets = {"interaction_date": forms.widgets.DateInput(attrs={"type": "date"})}
 
 

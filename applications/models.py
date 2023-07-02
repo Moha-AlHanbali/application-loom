@@ -5,16 +5,19 @@ from django_countries.fields import CountryField
 
 class Interaction(models.Model):
     id = models.BigAutoField(primary_key=True)
+    interaction_highlight = models.CharField(max_length=255, blank=False, null=False)
     interaction_date = models.DateField(blank=False, null=False)
     interaction_description = models.TextField(blank=False, null=False)
-
+    def __str__(self):
+        return self.interaction_highlight
 
 class Location(models.Model):
     id = models.BigAutoField(primary_key=True)
     country = CountryField(blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
-
+    def __str__(self):
+        return f"{self.city}, {self.country}"
 
 class Insight(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -69,3 +72,6 @@ class Application(models.Model):
 
     interactions = models.ForeignKey(Interaction, on_delete=models.CASCADE)
     notes = models.TextField(blank=False, null=False)
+
+    def __str__(self):
+        return f"{self.job_title}: {self.company_name}"
