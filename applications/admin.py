@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Interaction, Location, Application
 
-# Register your models here.
+admin.site.register(Interaction)
+admin.site.register(Location)
+admin.site.register(Application)

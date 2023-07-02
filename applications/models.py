@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from django_countries.fields import CountryField
 
 
 class Interaction(models.Model):
@@ -10,15 +11,15 @@ class Interaction(models.Model):
 
 class Location(models.Model):
     id = models.BigAutoField(primary_key=True)
-    country = models.CharField(max_length=255, blank=False, null=False)
+    country = CountryField(blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
 
 
-class Insight(models.Mode):
+class Insight(models.Model):
     id = models.BigAutoField(primary_key=True)
     cv_match = models.DecimalField(
-        max_digits=4, decimal_places=2, max_value=100.00, min_value=0.00
+        max_digits=4, decimal_places=2
     )
 
 
@@ -57,7 +58,7 @@ class Application(models.Model):
     company_insights = models.TextField()
 
     job_title = models.CharField(max_length=255, blank=False, null=False)
-    job_location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    job_location = models.OneToOneField(Location, on_delete=models.CASCADE)
     job_role_and_responsibilities = models.TextField(blank=False, null=False)
     job_requirements = models.TextField(blank=False, null=False)
     job_benefits = models.TextField(blank=False, null=False)
