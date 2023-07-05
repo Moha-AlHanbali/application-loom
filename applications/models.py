@@ -8,16 +8,20 @@ class Interaction(models.Model):
     interaction_highlight = models.CharField(max_length=255, blank=False, null=False)
     interaction_date = models.DateField(blank=False, null=False)
     interaction_description = models.TextField(blank=False, null=False)
-    def __str__(self):
-        return self.interaction_highlight
 
-class Location(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    country = CountryField(blank=False, null=False)
-    city = models.CharField(max_length=255, blank=False, null=False)
-    address = models.CharField(max_length=255, blank=False, null=False)
+    def get_company_name(self):
+        try:
+            application = self.application_set.first()
+            if application:
+                return f"{application.application_date} - {application.company_name} - {application.job_title}"
+            else:
+                return None
+        except Application.DoesNotExist:
+            return None
+    
     def __str__(self):
-        return f"{self.city}, {self.country}"
+        return f"{self.get_company_name()} - {self.interaction_highlight}"
+
 
 class Insight(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -61,7 +65,11 @@ class Application(models.Model):
     company_insights = models.TextField()
 
     job_title = models.CharField(max_length=255, blank=False, null=False)
-    job_location = models.OneToOneField(Location, on_delete=models.CASCADE)
+
+    job_country = CountryField(blank=False, null=False)
+    job_city = models.CharField(max_length=255, blank=False, null=False)
+    job_address = models.CharField(max_length=255, blank=False, null=False)
+
     job_role_and_responsibilities = models.TextField(blank=False, null=False)
     job_requirements = models.TextField(blank=False, null=False)
     job_benefits = models.TextField(blank=False, null=False)
