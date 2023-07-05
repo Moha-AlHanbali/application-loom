@@ -8,8 +8,19 @@ class Interaction(models.Model):
     interaction_highlight = models.CharField(max_length=255, blank=False, null=False)
     interaction_date = models.DateField(blank=False, null=False)
     interaction_description = models.TextField(blank=False, null=False)
+
+    def get_company_name(self):
+        try:
+            application = self.application_set.first()
+            if application:
+                return f"{application.application_date} - {application.company_name} - {application.job_title}"
+            else:
+                return None
+        except Application.DoesNotExist:
+            return None
+    
     def __str__(self):
-        return self.interaction_highlight
+        return f"{self.get_company_name()} - {self.interaction_highlight}"
 
 
 class Insight(models.Model):
