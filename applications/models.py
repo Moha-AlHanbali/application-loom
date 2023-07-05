@@ -11,13 +11,6 @@ class Interaction(models.Model):
     def __str__(self):
         return self.interaction_highlight
 
-class Location(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    country = CountryField(blank=False, null=False)
-    city = models.CharField(max_length=255, blank=False, null=False)
-    address = models.CharField(max_length=255, blank=False, null=False)
-    def __str__(self):
-        return f"{self.city}, {self.country}"
 
 class Insight(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -61,7 +54,11 @@ class Application(models.Model):
     company_insights = models.TextField()
 
     job_title = models.CharField(max_length=255, blank=False, null=False)
-    job_location = models.OneToOneField(Location, on_delete=models.CASCADE)
+
+    job_country = CountryField(blank=False, null=False)
+    job_city = models.CharField(max_length=255, blank=False, null=False)
+    job_address = models.CharField(max_length=255, blank=False, null=False)
+
     job_role_and_responsibilities = models.TextField(blank=False, null=False)
     job_requirements = models.TextField(blank=False, null=False)
     job_benefits = models.TextField(blank=False, null=False)

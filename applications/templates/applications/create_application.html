@@ -1,9 +1,6 @@
 <form method="POST" action="{% url 'create_application' %}">
   {% csrf_token %}
 
-  <h2>Location</h2>
-  {{ location_form.as_p }}
-
   <h2>Application</h2>
   {{ application_form.as_p }}
 
