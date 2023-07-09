@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django_countries",
     # Custom Apps
     "applications",
+    "users"
 ]
 
 MIDDLEWARE = [
