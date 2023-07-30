@@ -1,8 +1,14 @@
 from django import forms
+from .models import CareerBoard, Interaction, Application
 
-from .models import Interaction, Application
+
+class CareerBoardForm(forms.ModelForm):
+    class Meta:
+        model = CareerBoard
+        fields = ['name']
 
 
+        
 class InteractionForm(forms.ModelForm):
     class Meta:
         model = Interaction

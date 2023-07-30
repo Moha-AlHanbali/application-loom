@@ -1,0 +1,9 @@
+
+<h1>Create Career Board</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="{{ form.board_name.id_for_label }}">Board Name:</label>
+    {{ form.board_name }}
+    <button type="submit">Create</button>
+</form>
+

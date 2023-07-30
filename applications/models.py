@@ -1,6 +1,12 @@
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django_countries.fields import CountryField
+from django.contrib.auth.models import User
+
+
+class CareerBoard(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
 
 
 class Interaction(models.Model):
@@ -52,6 +58,8 @@ class Application(models.Model):
         OTHER = "OTHER", _("Other")
 
     id = models.BigAutoField(primary_key=True)
+
+    career_board = models.ForeignKey(CareerBoard, on_delete=models.CASCADE, blank=True, null=True)
 
     application_status = models.CharField(
         max_length=16,
