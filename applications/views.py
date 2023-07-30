@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import ApplicationForm, InteractionForm, CareerBoardForm
+from .models import CareerBoard
 
-
-# @login_required
+@login_required
 def create_career_board(request):
     if request.method == 'POST':
         form = CareerBoardForm(request.POST)
@@ -18,7 +18,16 @@ def create_career_board(request):
     return render(request, 'applications/create_career_board.html', {'form': form})
 
 
-# @login_required
+@login_required
+def career_board_list(request):
+    user = request.user
+    career_boards = CareerBoard.objects.filter(user=user)
+    career_boards = CareerBoard.objects.all()
+
+    return render(request, 'applications/career_board_list.html', {'career_boards': career_boards})
+
+
+@login_required
 def create_application(request):
     if request.method == "POST":
         application_form = ApplicationForm(request.POST)

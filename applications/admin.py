@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Interaction, Application
+from .models import CareerBoard, Interaction, Application
+
+
+class CareerBoardAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
 
 
 class JobApplicationAdmin(admin.ModelAdmin):
@@ -20,5 +24,6 @@ class JobInteractionAdmin(admin.ModelAdmin):
             return None
 
 
+admin.site.register(CareerBoard, CareerBoardAdmin)
 admin.site.register(Application, JobApplicationAdmin)
 admin.site.register(Interaction, JobInteractionAdmin)

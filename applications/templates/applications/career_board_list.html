@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Board List</title>
+</head>
+<body>
+    <h1>Career Board List</h1>
+    <ul>
+        {% for career_board in career_boards %}
+        <div>
+          <h2>{{ career_board.name }}</h2>
+          <p>{{ career_board.description }}</p>
+        </div>
+      {% endfor %}
+    </ul>
+</body>
+</html>
+
+

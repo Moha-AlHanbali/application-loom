@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 
 class CareerBoard(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=False, null=False)
 
 
 class Interaction(models.Model):
